@@ -1,5 +1,10 @@
 package kz.dias.aqa.tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import kz.dias.aqa.data.TestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Named;
@@ -12,6 +17,10 @@ import java.util.stream.Stream;
 import static kz.dias.aqa.steps.ResponseAssertions.assertError;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@Epic("Сервис авторизации пользователей (/endpoint)")
+@Feature("Проверка входных данных")
+@Story("Действие (action)")
+@Severity(SeverityLevel.NORMAL)
 @DisplayName("Валидация действия (action)")
 class ActionValidationTest extends BaseApiTest {
 

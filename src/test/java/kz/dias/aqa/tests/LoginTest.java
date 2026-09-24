@@ -1,5 +1,9 @@
 package kz.dias.aqa.tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import kz.dias.aqa.data.TestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +14,9 @@ import static kz.dias.aqa.steps.ResponseAssertions.assertError;
 import static kz.dias.aqa.steps.ResponseAssertions.assertRejected;
 import static kz.dias.aqa.steps.ResponseAssertions.assertSuccess;
 
+@Epic("Сервис авторизации пользователей (/endpoint)")
+@Feature("Вход (LOGIN)")
+@Severity(SeverityLevel.CRITICAL)
 @DisplayName("LOGIN: вход пользователя")
 class LoginTest extends BaseApiTest {
 

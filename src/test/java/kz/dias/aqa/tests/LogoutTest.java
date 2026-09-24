@@ -1,5 +1,9 @@
 package kz.dias.aqa.tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import kz.dias.aqa.data.TestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import static kz.dias.aqa.steps.ResponseAssertions.assertError;
 import static kz.dias.aqa.steps.ResponseAssertions.assertSuccess;
 
+@Epic("Сервис авторизации пользователей (/endpoint)")
+@Feature("Выход (LOGOUT)")
+@Severity(SeverityLevel.CRITICAL)
 @DisplayName("LOGOUT: выход пользователя")
 class LogoutTest extends BaseApiTest {
 

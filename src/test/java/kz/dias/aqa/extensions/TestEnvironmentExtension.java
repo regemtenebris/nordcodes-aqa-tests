@@ -39,6 +39,11 @@ public class TestEnvironmentExtension implements BeforeAllCallback, ParameterRes
         return getOrStart(extensionContext);
     }
 
+    /** The environment if it has already been started in this run, otherwise {@code null}. */
+    public static TestEnvironment findRunning(ExtensionContext context) {
+        return context.getRoot().getStore(NAMESPACE).get(KEY, TestEnvironment.class);
+    }
+
     private static TestEnvironment getOrStart(ExtensionContext context) {
         return context.getRoot()
                 .getStore(NAMESPACE)

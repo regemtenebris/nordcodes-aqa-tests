@@ -1,5 +1,10 @@
 package kz.dias.aqa.tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import io.qameta.allure.Allure;
 import kz.dias.aqa.data.TestData;
 import kz.dias.aqa.model.Action;
@@ -14,6 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Race conditions: many identical requests for the same token at the same moment.
  */
+@Epic("Сервис авторизации пользователей (/endpoint)")
+@Feature("Надёжность")
+@Story("Одновременные запросы")
+@Severity(SeverityLevel.NORMAL)
 @DisplayName("Одновременные запросы")
 class ConcurrencyTest extends BaseApiTest {
 

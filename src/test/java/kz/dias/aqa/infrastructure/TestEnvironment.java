@@ -1,8 +1,11 @@
 package kz.dias.aqa.infrastructure;
 
 import kz.dias.aqa.config.TestConfig;
+import kz.dias.aqa.reporting.AllureEnvironmentWriter;
 
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Everything the tests need running: the external service mock and the application
@@ -39,7 +42,18 @@ public final class TestEnvironment implements AutoCloseable {
             mock.close();   // don't leave the mock running if the app failed to start
             throw e;
         }
+        AllureEnvironmentWriter.write(describe(mock, app));
         return new TestEnvironment(mock, app);
+    }
+
+    private static Map<String, String> describe(ExternalServiceMock mock, AppUnderTest app) {
+        Map<String, String> info = new LinkedHashMap<>();
+        info.put("Тестируемое приложение", Path.of(TestConfig.appJarPath()).getFileName().toString());
+        info.put("Адрес приложения", app.baseUrl() + TestConfig.endpointPath());
+        info.put("Внешний сервис (заглушка WireMock)", mock.baseUrl());
+        info.put("Java", System.getProperty("java.version"));
+        info.put("ОС", System.getProperty("os.name") + " " + System.getProperty("os.arch"));
+        return info;
     }
 
     public ExternalServiceMock mock() {

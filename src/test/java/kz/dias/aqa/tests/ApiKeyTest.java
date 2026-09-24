@@ -1,5 +1,10 @@
 package kz.dias.aqa.tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import kz.dias.aqa.config.TestConfig;
 import kz.dias.aqa.data.TestData;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +20,10 @@ import static kz.dias.aqa.steps.ResponseAssertions.assertError;
 import static kz.dias.aqa.steps.ResponseAssertions.assertSuccess;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@Epic("Сервис авторизации пользователей (/endpoint)")
+@Feature("Безопасность")
+@Story("API-ключ")
+@Severity(SeverityLevel.CRITICAL)
 @DisplayName("Безопасность: API-ключ")
 class ApiKeyTest extends BaseApiTest {
 

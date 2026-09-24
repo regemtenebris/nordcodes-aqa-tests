@@ -3,6 +3,7 @@ package kz.dias.aqa.tests;
 import kz.dias.aqa.client.EndpointClient;
 import kz.dias.aqa.extensions.TestEnvironmentExtension;
 import kz.dias.aqa.infrastructure.TestEnvironment;
+import kz.dias.aqa.reporting.FailureAttachmentsExtension;
 import kz.dias.aqa.steps.ExternalServiceSteps;
 import kz.dias.aqa.steps.SessionSteps;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,10 +15,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * <ul>
  *   <li>makes sure the environment (mock + app) is running;</li>
  *   <li>resets the mock before every test so tests never influence each other;</li>
- *   <li>by default the external service answers 200 (happy path) - tests override when needed.</li>
+ *   <li>by default the external service answers 200 (happy path) - tests override when needed;</li>
+ *   <li>on failure attaches the external-service requests and the app log to the Allure report.</li>
  * </ul>
  */
-@ExtendWith(TestEnvironmentExtension.class)
+@ExtendWith({TestEnvironmentExtension.class, FailureAttachmentsExtension.class})
 public abstract class BaseApiTest {
 
     protected static TestEnvironment env;

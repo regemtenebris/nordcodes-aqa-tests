@@ -1,5 +1,12 @@
 package kz.dias.aqa.tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import kz.dias.aqa.data.TestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Named;
@@ -24,6 +31,10 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * Validation of the {@code token} parameter.
  * Technique: equivalence partitioning + boundary values (length 31 / 32 / 33).
  */
+@Epic("Сервис авторизации пользователей (/endpoint)")
+@Feature("Проверка входных данных")
+@Story("Токен")
+@Severity(SeverityLevel.NORMAL)
 @DisplayName("Валидация токена")
 class TokenValidationTest extends BaseApiTest {
 
@@ -77,6 +88,11 @@ class TokenValidationTest extends BaseApiTest {
 
     @Test
     @Tag(Tags.KNOWN_BUG)
+    @Issue("1")
+    @Description("""
+            По документации токен — это 32 символа из набора A–Z и 0–9.
+            Приложение же принимает только буквы A–F (шестнадцатеричный формат) и отклоняет
+            токены с буквами G–Z. Пользователь с таким токеном не сможет войти.""")
     @DisplayName("[BUG-1] Токен с буквами G–Z принимается (по документации алфавит A–Z0–9)")
     void tokenWithAnyLatinLetterIsAccepted() {
         String token = randomString(NON_HEX_LETTERS, TOKEN_LENGTH);
