@@ -1,0 +1,13 @@
+POST /auth
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+token=7AE4ACE583F689562907C4159BCA9386
+
+----------
+
+POST /doAction
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+token=7AE4ACE583F689562907C4159BCA9386

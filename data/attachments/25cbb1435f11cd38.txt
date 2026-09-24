@@ -1,0 +1,5 @@
+POST /auth
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+token=6B9B86F3B58A67F99198704E904EE920

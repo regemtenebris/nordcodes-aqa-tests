@@ -1,0 +1,23 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-09-24T07:36:43.576Z  INFO 2644 --- [aqa] [           main] recruitment.aqa.service.AqaApplication   : Starting AqaApplication v0.0.1-SNAPSHOT using Java 17.0.20.1 with PID 2644 (/home/runner/work/nordcodes-aqa-tests/nordcodes-aqa-tests/app/internal-0.0.1-SNAPSHOT.jar started by runner in /home/runner/work/nordcodes-aqa-tests/nordcodes-aqa-tests)
+2026-09-24T07:36:43.578Z  INFO 2644 --- [aqa] [           main] recruitment.aqa.service.AqaApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-09-24T07:36:44.515Z  INFO 2644 --- [aqa] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 36093 (http)
+2026-09-24T07:36:44.523Z  INFO 2644 --- [aqa] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-24T07:36:44.523Z  INFO 2644 --- [aqa] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-09-24T07:36:44.546Z  INFO 2644 --- [aqa] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-24T07:36:44.547Z  INFO 2644 --- [aqa] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 935 ms
+2026-09-24T07:36:44.965Z  INFO 2644 --- [aqa] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name requestHeaderAuthenticationProvider
+2026-09-24T07:36:45.183Z  INFO 2644 --- [aqa] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 36093 (http) with context path '/'
+2026-09-24T07:36:45.194Z  INFO 2644 --- [aqa] [           main] recruitment.aqa.service.AqaApplication   : Started AqaApplication in 1.925 seconds (process running for 2.513)
+2026-09-24T07:36:46.849Z  INFO 2644 --- [aqa] [io-36093-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-24T07:36:46.849Z  INFO 2644 --- [aqa] [io-36093-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-24T07:36:46.850Z  INFO 2644 --- [aqa] [io-36093-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms

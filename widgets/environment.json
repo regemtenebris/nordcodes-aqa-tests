@@ -1,0 +1,1 @@
+[{"values":["17.0.20.1"],"name":"Java"},{"values":["http://localhost:35663/"],"name":"Внешний сервис (заглушка WireMock)"},{"values":["Linux amd64"],"name":"ОС"},{"values":["internal-0.0.1-SNAPSHOT.jar"],"name":"Тестируемое приложение"},{"values":["http://localhost:36093/endpoint"],"name":"Адрес приложения"}]
