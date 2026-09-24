@@ -2,10 +2,12 @@ package kz.dias.aqa.tests;
 
 import kz.dias.aqa.data.TestData;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static kz.dias.aqa.steps.ResponseAssertions.assertSuccess;
 
+@Tag(Tags.SMOKE)
 @DisplayName("Smoke: основной пользовательский сценарий")
 class SmokeTest extends BaseApiTest {
 
