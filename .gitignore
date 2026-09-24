@@ -1,0 +1,24 @@
+# --- Build output (Maven) ---
+target/
+
+# --- Allure: raw results & generated report ---
+allure-results/
+allure-report/
+.allure/
+
+# --- IDE ---
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Maven Wrapper: keep the wrapper jar out, it is downloaded on demand ---
+.mvn/wrapper/maven-wrapper.jar

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Координаты проекта: groupId (обычно обратный домен) + artifactId + version -->
+  <groupId>kz.dias</groupId>
+  <artifactId>nordcodes-aqa-tests</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>NordCodes AQA test task</name>
+  <description>API autotests for internal-0.0.1-SNAPSHOT.jar</description>
+
+  <properties>
+    <!-- Компилируем под Java 17, даже если запускаем на JDK 21 -->
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <!-- Зависимости и плагины добавим на шаге 2 -->
+</project>
