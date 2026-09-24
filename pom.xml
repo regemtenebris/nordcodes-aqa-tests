@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- Координаты проекта: groupId (обычно обратный домен) + artifactId + version -->
   <groupId>kz.dias</groupId>
   <artifactId>nordcodes-aqa-tests</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -12,11 +11,159 @@
   <description>API autotests for internal-0.0.1-SNAPSHOT.jar</description>
 
   <properties>
-    <!-- Компилируем под Java 17, даже если запускаем на JDK 21 -->
+    <!-- ===== Java & encoding ===== -->
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- ===== Library versions: one place to bump them ===== -->
+    <junit.version>5.13.4</junit.version>
+    <rest-assured.version>5.5.5</rest-assured.version>
+    <wiremock.version>3.13.1</wiremock.version>
+    <allure.version>2.29.1</allure.version>
+    <aspectj.version>1.9.24</aspectj.version>
+    <assertj.version>3.27.4</assertj.version>
+    <jackson.version>2.19.2</jackson.version>
+    <logback.version>1.5.18</logback.version>
+
+    <!-- ===== Plugin versions ===== -->
+    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+    <allure-maven.version>2.15.2</allure-maven.version>
+    <allure-commandline.version>2.32.0</allure-commandline.version>
+
+    <!-- Where Allure writes raw results (inside target/ => cleaned by mvn clean, ignored by git) -->
+    <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
   </properties>
 
-  <!-- Зависимости и плагины добавим на шаге 2 -->
+  <!-- BOM = "bill of materials": aligns versions of all modules of one library -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-bom</artifactId>
+        <version>${allure.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- All dependencies are <scope>test</scope>: this project contains only tests -->
+  <dependencies>
+    <!-- Test framework: JUnit 5 (Jupiter) + parameterized tests -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- HTTP client for API tests with fluent given/when/then DSL -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JSON <-> Java objects (used by REST Assured to map responses to records) -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Mock of the external service (/auth, /doAction). Standalone = shaded, no Jetty conflicts -->
+    <dependency>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-standalone</artifactId>
+      <version>${wiremock.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Fluent, readable assertions with good failure messages -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Allure: JUnit 5 integration + automatic HTTP request/response attachments -->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-rest-assured</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Logging backend (SLF4J implementation) -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <!-- Keep method parameter names: nicer names in @ParameterizedTest reports -->
+          <parameters>true</parameters>
+        </configuration>
+      </plugin>
+
+      <!-- Surefire runs the tests on `mvn test` -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <!-- AspectJ agent is required for Allure @Step / @Attachment annotations -->
+          <argLine>
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+            -Dfile.encoding=UTF-8
+          </argLine>
+          <systemPropertyVariables>
+            <allure.results.directory>${allure.results.directory}</allure.results.directory>
+          </systemPropertyVariables>
+        </configuration>
+        <dependencies>
+          <!-- Makes Maven download aspectjweaver so the -javaagent path above exists -->
+          <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <!-- `./mvnw allure:serve` / `./mvnw allure:report` - build the HTML report -->
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>${allure-maven.version}</version>
+        <configuration>
+          <reportVersion>${allure-commandline.version}</reportVersion>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
