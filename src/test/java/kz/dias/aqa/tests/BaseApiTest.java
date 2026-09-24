@@ -4,6 +4,7 @@ import kz.dias.aqa.client.EndpointClient;
 import kz.dias.aqa.extensions.TestEnvironmentExtension;
 import kz.dias.aqa.infrastructure.TestEnvironment;
 import kz.dias.aqa.steps.ExternalServiceSteps;
+import kz.dias.aqa.steps.SessionSteps;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,7 @@ public abstract class BaseApiTest {
 
     protected EndpointClient api;
     protected ExternalServiceSteps externalService;
+    protected SessionSteps session;
 
     @BeforeAll
     static void initEnvironment(TestEnvironment environment) {   // injected by the extension
@@ -35,6 +37,7 @@ public abstract class BaseApiTest {
 
         api = new EndpointClient(env.app().baseUrl());
         externalService = new ExternalServiceSteps(env.mock().server());
+        session = new SessionSteps(api);
 
         externalService.authRespondsWith(200);
         externalService.doActionRespondsWith(200);
