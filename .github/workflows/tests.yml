@@ -17,15 +17,15 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04     # pinned: "latest" silently changes the OS under the tests
     timeout-minutes: 15
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -43,7 +43,7 @@ jobs:
       # ---------- Allure report ----------
       - name: Load report history from gh-pages
         if: always()
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         continue-on-error: true   # first run: gh-pages does not exist yet
         with:
           ref: gh-pages
@@ -71,14 +71,14 @@ jobs:
 
       - name: Upload report as build artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: allure-report
           path: target/site/allure-maven-plugin
 
       - name: Upload application log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: app-under-test-log
           path: target/app-under-test.log
